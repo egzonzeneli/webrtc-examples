@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="JS Client-side WebRTC code samples">
+    <meta itemprop="name" content="WebRTC code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta id="theme-color" name="theme-color" content="#ffffff">
+
+    <base target="_blank">
+
+    <title>Peer connection: adjust bandwidth</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css"/>
+</head>
+
+<body>
+    <main role="main">
+        <section class="jumbotron">
+            <h1><span>Adjust bandwidth</span></h1>
+            <p class="lead">Fork of
+                <a href ="https://github.com/webrtc/samples/tree/gh-pages/src/content/peerconnection/bandwidth" title="WebRTC Example">WebRTC Example</a> </p>
+            <hr class="my-4">
+        </section>
+        <div id="container">
+            <div class="row">
+                <div class="col-sm">
+                    <h5 class="text-center">Local Video</h4>
+                    <video id="localVideo1" playsinline autoplay muted></video>
+                </div>
+                <div class="col-sm">
+                    <h5>First PC</h4>
+                    <div class="form-group">
+                        <label for="bandwidth">Bandwidth:</label>
+                        <select id="bandwidth" disabled>
+                            <option value="unlimited" selected>unlimited</option>
+                            <option value="2000">2000</option>
+                            <option value="1000">1000</option>
+                            <option value="500">500</option>
+                            <option value="250">250</option>
+                            <option value="125">125</option>
+                        </select>
+                        kbps
+                    </div>
+                    <div id="buttons">
+                        <button id="callButton" data-pc="1">Call</button>
+                        <button id="hangupButton" data-pc="1">Hang Up</button>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <h5>Second PC</h4>
+                    <div class="form-group">
+                        <label for="bandwidth2">Bandwidth:</label>
+                        <select id="bandwidth2" disabled>
+                            <option value="unlimited" selected>unlimited</option>
+                            <option value="2000">2000</option>
+                            <option value="1000">1000</option>
+                            <option value="500">500</option>
+                            <option value="250">250</option>
+                            <option value="125">125</option>
+                        </select>
+                        kbps
+                    </div>
+                    <div id="buttons">
+                        <button id="callButton2" data-pc="2">Call</button>
+                        <button id="hangupButton2" data-pc="2">Hang Up</button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm video-container">
+                    <h5 class="text-center">Remote Video 1</h4>
+                    <video id="remoteVideo1" playsinline autoplay muted></video>
+                    <div class="overlay">
+                        <span id="rVideoCodec"></span><br/>
+                        <span id="rVideoDim"></span>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="graph-container" id="bitrateGraph">
+                        <div>[Sender] Bitrate</div>
+                        <canvas id="bitrateCanvas"></canvas>
+                    </div>
+                    <div class="graph-container" id="packetGraph">
+                        <div>[Sender] Packets sent per second</div>
+                        <canvas id="packetCanvas"></canvas>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="graph-container" id="receiverBitrateGraph">
+                        <div>[Receiver] Bitrate</div>
+                        <canvas id="receiverBitrateCanvas"></canvas>
+                    </div>
+                    <div class="graph-container" id="receiverPacketGraph">
+                        <div>[Receiver] Packets received per second</div>
+                        <canvas id="receiverPacketCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm video-container">
+                    <h5 class="text-center">Remote Video 2</h4>
+                    <video id="remoteVideo2" playsinline autoplay muted></video>
+                    <div class="overlay">
+                        <span id="r2VideoCodec"></span><br/>
+                        <span id="r2VideoDim"></span>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="graph-container" id="bitrateGraph2">
+                        <div>[Sender] Bitrate</div>
+                        <canvas id="bitrateCanvas2"></canvas>
+                    </div>
+                    <div class="graph-container" id="packetGraph2">
+                        <div>[Sender] Packets sent per second</div>
+                        <canvas id="packetCanvas2"></canvas>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="graph-container" id="receiverBitrateGraph2">
+                        <div>[Receiver] Bitrate</div>
+                        <canvas id="receiverBitrateCanvas2"></canvas>
+                    </div>
+                    <div class="graph-container" id="receiverPacketGraph2">
+                        <div>[Receiver] Packets received per second</div>
+                        <canvas id="receiverPacketCanvas2"></canvas>
+                    </div>
+                </div>
+            </div>
+         
+<!-- 
+            <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/peerconnection/bandwidth"
+            title="View source for this page on GitHub" id="viewSource">View source on GitHub</a> -->
+
+        </div>
+    </main>
+
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="js/main.js" async></script>
+    <script src="js//graph.js"></script>
+</body>
